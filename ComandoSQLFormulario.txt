@@ -1,0 +1,60 @@
+create database FormularioPrueba
+
+use FormularioPrueba
+
+CREATE TABLE Usuario (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombres VARCHAR(50),
+    Apellidos VARCHAR(50),
+    Telefono VARCHAR(20),
+    Ciudad VARCHAR(50),
+    Mes INT,
+    VentaMes DECIMAL(10, 2)
+)
+
+create procedure sp_load
+as begin
+select * from Usuario
+End
+
+-- CRUD
+
+-- Create:
+create procedure sp_create
+@Nombres VARCHAR(50),
+@Apellidos VARCHAR(50),
+@Telefono VARCHAR(20),
+@Ciudad VARCHAR(50),
+@Mes INT,
+@VentaMes DECIMAL(10, 2)
+as begin
+insert into Usuarios values(@Nombres,@Apellidos,@Telefono,@Ciudad,@Mes,@VentaMes)
+end
+
+-- Read:
+create procedure sp_read
+@Id int
+as begin
+select * from Usuario where ID = @id
+end
+
+-- Update:
+create procedure sp_update
+@Id int,
+@Nombres VARCHAR(50),
+@Apellidos VARCHAR(50),
+@Telefono VARCHAR(20),
+@Ciudad VARCHAR(50),
+@Mes INT,
+@VentaMes DECIMAL(10, 2)
+as begin
+update Usuario set Nombres = @Nombres, Apellidos = @Apellidos, Telefono = @Telefono, Ciudad = @Ciudad, Mes = @Mes, VentaMes = @VentaMes
+where ID = @Id
+end
+
+-- Delete:
+create procedure sp_delete
+@Id int
+as begin
+delete from Usuario where ID = @Id
+end
